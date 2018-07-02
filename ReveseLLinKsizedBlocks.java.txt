@@ -1,0 +1,110 @@
+package com;
+
+public class Example {
+	
+	
+	public static void main(String[] args) {
+		// System.out.println("this is what i love~");
+
+		Linkdlist llnode1 = new Linkdlist(1);
+		Linkdlist llnode2 = new Linkdlist(2);
+		Linkdlist llnode3 = new Linkdlist(3);
+		Linkdlist llnode4 = new Linkdlist(4);
+		Linkdlist llnode5 = new Linkdlist(5);
+		Linkdlist llnode6 = new Linkdlist(6);
+		Linkdlist llnode7 = new Linkdlist(7);
+		
+		
+		llnode1.setNext(llnode2);
+		llnode2.setNext(llnode3);
+		llnode3.setNext(llnode4);
+		llnode4.setNext(llnode5);
+		llnode5.setNext(llnode6);
+		llnode6.setNext(llnode7);
+		
+		
+		Linkdlist head1 = null, head2 = null;
+		int k=3;
+		Linkdlist HEAD = reverseKBlocksIteration(llnode1,k);
+		
+		while (HEAD!=null) {
+			System.out.println(HEAD.getData());
+			HEAD= HEAD.getNext();
+		}
+		
+	}
+	
+//using iteration
+	public static Linkdlist reverseKBlocksIteration(Linkdlist head, int k) {
+		Linkdlist current=head,prevCurrent=head,prevTail=null;
+		while (current!=null) {
+			Linkdlist tail=null;
+			int count=k;
+			while(current!=null&& count>0) {
+				Linkdlist next = current.getNext();
+				current.setNext(tail);
+				//saving the last element of the next block which will become first after reversal
+				tail=current;
+				current=next;
+				count--;
+			}
+			
+			if(prevTail!=null) { prevTail.setNext(tail);}
+			else {
+				//after first reversal we need to update the head to point at the last element of unreversed block as that will be the new head after the reversal
+				head=tail;}
+			//saving the fist element of the block which will become last after reversal
+			prevTail=prevCurrent;
+		
+			prevCurrent=current;
+		}
+		return head;
+	}	
+//using recursion
+public static Linkdlist reverseKBlocksRecursive(Linkdlist head, int k) {
+	Linkdlist current=head, prev=null,next=null;
+	int count =k;
+//code to reverse the first block
+	while(current!=null && count>0) {
+		next = current.getNext();
+		current.setNext(prev);
+		prev= current;
+		current = next;
+		count--;
+	}
+	
+//recursion call with terminating condition
+	if(next!=null) {
+		head.setNext(reverseKBlocksRecursive(next, k));
+	}
+	return prev;
+}
+}
+
+class Linkdlist {
+
+	private int data;
+	private Linkdlist next;
+
+	public Linkdlist(int data) {
+		this.data = data;
+		next = null;
+	}
+
+	public int getData() {
+		return data;
+	}
+
+	public void setData(int data) {
+		this.data = data;
+	}
+
+	public Linkdlist getNext() {
+		return next;
+	}
+
+	public void setNext(Linkdlist next) {
+		this.next = next;
+	}
+
+}

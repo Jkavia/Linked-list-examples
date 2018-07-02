@@ -1,0 +1,79 @@
+package com;
+
+public class Example {
+
+	public static void main(String[] args) {
+		// System.out.println("this is what i love~");
+
+		/*
+		 * Linkdlist llnode1 = new Linkdlist(1); Linkdlist llnode2 = new Linkdlist(2);
+		 * Linkdlist llnode3 = new Linkdlist(3); Linkdlist llnode4 = new Linkdlist(4);
+		 * Linkdlist llnode5 = new Linkdlist(5); Linkdlist llnode6 = new Linkdlist(6);
+		 * Linkdlist llnode7 = new Linkdlist(7);
+		 * 
+		 * 
+		 * llnode1.setNext(llnode2); llnode2.setNext(llnode3); llnode3.setNext(llnode4);
+		 * llnode4.setNext(llnode5); llnode5.setNext(llnode6); llnode6.setNext(llnode7);
+		 */
+
+		Linkdlist linkedlist = new Linkdlist();
+
+		for (int i = 0; i < 10; i++) {
+
+			linkedlist.add(i);
+		}
+
+		while (linkedlist.head != null) {
+			System.out.println(linkedlist.head.getData());
+			linkedlist.head = linkedlist.head.getNext();
+		}
+	}
+
+}
+
+class Linkdlist {
+
+	private int data;
+	private Linkdlist next;
+	public Linkdlist head;
+
+	public Linkdlist() {
+	}
+
+	public Linkdlist(int data) {
+		this.data = data;
+		this.next = null;
+	}
+
+	// GOT IT! METHOD TO ADD ELEMENTS INTO THE LINKED LIST
+	public void add(int index) {
+		if (head != null) {
+			Linkdlist temp = new Linkdlist();
+			Linkdlist node = new Linkdlist(index);
+			temp = head;
+			while (temp.getNext() != null) {
+				temp = temp.getNext();
+			}
+			temp.setNext(node);
+		} else {
+			head = new Linkdlist(index);
+		}
+	}
+
+	public int getData() {
+		return data;
+	}
+
+	public void setData(int data) {
+		this.data = data;
+	}
+
+	public Linkdlist getNext() {
+		return next;
+	}
+
+	public void setNext(Linkdlist next) {
+		this.next = next;
+	}
+
+}
