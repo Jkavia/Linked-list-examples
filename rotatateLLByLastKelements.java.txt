@@ -1,0 +1,99 @@
+package com;
+
+public class Example {
+
+	public static void main(String[] args) {
+
+		Linkdlist linkedlist = new Linkdlist();
+
+		for (int i = 1; i <= 10; i++) {
+
+			linkedlist.add(i);
+		}
+
+		/*
+		 * while (linkedlist.head != null) {
+		 * System.out.println(linkedlist.head.getData()); linkedlist.head =
+		 * linkedlist.head.getNext(); }
+		 */
+		int k = 3;
+		Linkdlist result = RotateLLbyK(linkedlist.head, k);
+
+		while (result != null) {
+			System.out.println(result.getData());
+			result = result.getNext();
+
+		}
+	}
+
+	public static Linkdlist RotateLLbyK(Linkdlist head, int k) {
+
+		Linkdlist p1 = head;
+		Linkdlist p2 = head;
+		int i = 1;
+		while (p1.getNext() != null) {
+
+			if (i > k) {
+				p1 = p1.getNext();
+				p2 = p2.getNext();
+			} else {
+				p1 = p1.getNext();
+			}
+			i++;
+		}
+		Linkdlist newHead = p2.getNext();
+		p1.setNext(head);
+		p2.setNext(null);
+
+		return newHead;
+
+	}
+
+}
+
+class Linkdlist {
+
+	private int data;
+	private Linkdlist next;
+	public Linkdlist head;
+
+	public Linkdlist() {
+	}
+
+	public Linkdlist(int data) {
+		this.data = data;
+		this.next = null;
+	}
+
+	// GOT IT! METHOD TO ADD ELEMENTS INTO THE LINKED LIST
+	public void add(int index) {
+		if (head != null) {
+			Linkdlist temp = new Linkdlist();
+			Linkdlist node = new Linkdlist(index);
+			temp = head;
+			while (temp.getNext() != null) {
+				temp = temp.getNext();
+			}
+			temp.setNext(node);
+		} else {
+			head = new Linkdlist(index);
+		}
+	}
+
+	public int getData() {
+		return data;
+	}
+
+	public void setData(int data) {
+		this.data = data;
+	}
+
+	public Linkdlist getNext() {
+		return next;
+	}
+
+	public void setNext(Linkdlist next) {
+		this.next = next;
+	}
+
+}
